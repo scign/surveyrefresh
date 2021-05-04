@@ -19,16 +19,22 @@ logging.basicConfig(
   level=logging.INFO
 )
 
+from functools import wraps
+
 def virtual_display(func):
-  display = None
-  if os.name=='posix':
-    display = Display(visible=0, size=(800, 600))
-    display.start()
+  @wraps(func)
+  def wrapper():
+    display = None
+    if os.name=='posix':
+      display = Display(visible=0, size=(800, 600))
+      display.start()
 
-  func()
+    func()
 
-  if display:
-    display.stop()
+    if display:
+      display.stop()
+
+  return wrapper
 
 """
   Set up survey datasets to download
@@ -39,10 +45,10 @@ def virtual_display(func):
     - Completion threshold (responses with the same answers and within this number of seconds from each other will be removed)
 """
 nodes = {
-  #'46099': ('202105_pp_p_teacher.xlsx', 'Pre-Primary and Primary teachers 2021 year end', 60),
-  #'45400': ('202105_g4_g6_student.xlsx', 'Grade 4-6 student 2021 year end', 60),
-  #'45404': ('202105_g4_g6_parent.xlsx', 'Grade 4-6 parent 2021 year end', 60),
-  #'45402': ('202105_pp_g3_family.xlsx', 'Pre-Primary - Grade 3 family 2021 year end', 60),
+  '46099': ('202105_pp_p_teacher.xlsx', 'Pre-Primary and Primary teachers 2021 year end', 60),
+  '45400': ('202105_g4_g6_student.xlsx', 'Grade 4-6 student 2021 year end', 60),
+  '45404': ('202105_g4_g6_parent.xlsx', 'Grade 4-6 parent 2021 year end', 60),
+  '45402': ('202105_pp_g3_family.xlsx', 'Pre-Primary - Grade 3 family 2021 year end', 60),
   '45401': ('202105_g7_g12_student.xlsx', 'Secondary student 2021 year end', 60),
   '45403': ('202105_g7_g12_parent.xlsx', 'Secondary parent 2021 year end', 60),
   #'42518': ('old_survey_test_file.xlsx', 'Old survey - test 2021 year end', 60),
