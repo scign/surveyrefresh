@@ -10,8 +10,8 @@ from sharepoint import *
 if os.name=='posix':
   from pyvirtualdisplay import Display
 
-survey_username = os.environ.get('SURVEY_USERNAME','')
-survey_password = os.environ.get('SURVEY_PASSWORD','')
+survey_username = os.environ.get('ITREB_USERNAME','')
+survey_password = os.environ.get('ITREB_PASSWORD','')
 
 logging.basicConfig(
   format='%(asctime)s %(levelname)-8s %(message)s',
