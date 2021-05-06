@@ -156,5 +156,5 @@ nodes = {
   #'42518': ('old_survey_test_file.xlsx', 'Old survey - test 2021 year end', 60),
 }
 
-if __name__ == 'main':
+if __name__ == '__main__':
   download_surveys()
