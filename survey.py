@@ -36,24 +36,6 @@ def virtual_display(func):
 
   return wrapper
 
-"""
-  Set up survey datasets to download
-  Format:
-    - Node ID (number from the download URL)
-    - Destination filename (what the file should be called when uploaded to SharePoint)
-    - Survey title (What the survey should be named in Power BI)
-    - Completion threshold (responses with the same answers and within this number of seconds from each other will be removed)
-"""
-nodes = {
-  '46099': ('202105_pp_p_teacher.xlsx', 'Pre-Primary and Primary teachers 2021 year end', 60),
-  '45400': ('202105_g4_g6_student.xlsx', 'Grade 4-6 student 2021 year end', 60),
-  '45404': ('202105_g4_g6_parent.xlsx', 'Grade 4-6 parent 2021 year end', 60),
-  '45402': ('202105_pp_g3_family.xlsx', 'Pre-Primary - Grade 3 family 2021 year end', 60),
-  '45401': ('202105_g7_g12_student.xlsx', 'Secondary student 2021 year end', 60),
-  '45403': ('202105_g7_g12_parent.xlsx', 'Secondary parent 2021 year end', 60),
-  #'42518': ('old_survey_test_file.xlsx', 'Old survey - test 2021 year end', 60),
-}
-
 def get_responses(node, download_path):
   survey_name = nodes[node][1]
   
@@ -133,7 +115,7 @@ def remove_duplicates(df, completion_threshold):
 
 
 @virtual_display
-def main():
+def download_surveys():
   dl_tmp_folder = TemporaryDirectory()
   download_path = dl_tmp_folder.name
 
@@ -156,4 +138,23 @@ def main():
 
       logging.info(f'------ Completed ({node} - {survey_name}) ------')
 
-main()
+"""
+  Set up survey datasets to download
+  Format:
+    - Node ID (number from the download URL)
+    - Destination filename (what the file should be called when uploaded to SharePoint)
+    - Survey title (What the survey should be named in Power BI)
+    - Completion threshold (responses with the same answers and within this number of seconds from each other will be removed)
+"""
+nodes = {
+  '46099': ('202105_pp_p_teacher.xlsx', 'Pre-Primary and Primary teachers 2021 year end', 60),
+  '45400': ('202105_g4_g6_student.xlsx', 'Grade 4-6 student 2021 year end', 60),
+  '45404': ('202105_g4_g6_parent.xlsx', 'Grade 4-6 parent 2021 year end', 60),
+  '45402': ('202105_pp_g3_family.xlsx', 'Pre-Primary - Grade 3 family 2021 year end', 60),
+  '45401': ('202105_g7_g12_student.xlsx', 'Secondary student 2021 year end', 60),
+  '45403': ('202105_g7_g12_parent.xlsx', 'Secondary parent 2021 year end', 60),
+  #'42518': ('old_survey_test_file.xlsx', 'Old survey - test 2021 year end', 60),
+}
+
+if __name__ == 'main':
+  download_surveys()
