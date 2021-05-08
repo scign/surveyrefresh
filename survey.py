@@ -143,5 +143,5 @@ if __name__ == '__main__':
   files = get_file_details()
   message = ''
   for name, modified in files.items():
-    message += '<b>' + name + '</b>\n' + modified.strftime('%a %b %-d %-I:%M %p') + '\n\n'
+    message += '<b>' + name + '</b>\n' + modified.strftime('%a %b %d, %I:%M:%S %p') + '\n\n'
   send(message)
