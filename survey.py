@@ -6,9 +6,8 @@ from tempfile import TemporaryDirectory
 
 from browser import *
 from sharepoint import *
-
-if os.name=='posix':
-  from pyvirtualdisplay import Display
+from telegram import *
+import display
 
 survey_username = os.environ.get('ITREB_USERNAME','')
 survey_password = os.environ.get('ITREB_PASSWORD','')
@@ -18,23 +17,6 @@ logging.basicConfig(
   datefmt='%Y-%m-%d %H:%M:%S',
   level=logging.INFO
 )
-
-from functools import wraps
-
-def virtual_display(func):
-  @wraps(func)
-  def wrapper():
-    display = None
-    if os.name=='posix':
-      display = Display(visible=0, size=(800, 600))
-      display.start()
-
-    func()
-
-    if display:
-      display.stop()
-
-  return wrapper
 
 def get_responses(node, download_path):
   survey_name = nodes[node][1]
@@ -114,7 +96,7 @@ def remove_duplicates(df, completion_threshold):
   return dups_removed.melt(common_cols, var_name='Question', value_name='Response')
 
 
-@virtual_display
+@display.virtual_display
 def download_surveys():
   dl_tmp_folder = TemporaryDirectory()
   download_path = dl_tmp_folder.name
@@ -158,3 +140,8 @@ nodes = {
 
 if __name__ == '__main__':
   download_surveys()
+  files = get_file_details()
+  message = ''
+  for name, modified in files.items():
+    message += '<b>' + name + '</b>\n' + modified.strftime('%a %b %-d %-I:%M %p') + '\n\n'
+  send(message)
