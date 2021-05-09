@@ -109,7 +109,7 @@ def download_surveys():
         logging.info('Opening file')
         df = pd.read_excel(new_file, skiprows=2, sheet_name="Sheet1", engine='openpyxl')
         df['survey'] = survey_name
-        
+
         output_file = os.path.join(download_path, survey_file)
         melted = remove_duplicates(df, completion_threshold)
         melted.to_excel(output_file)
@@ -127,12 +127,12 @@ def download_surveys():
     - Completion threshold (responses with the same answers and within this number of seconds from each other will be removed)
 """
 surveys = {
-  #'46099': ('202105_pp_p_teacher.xlsx', 'Pre-Primary and Primary teachers 2021 year end', 60),
-  #'45400': ('202105_g4_g6_student.xlsx', 'Grade 4-6 student 2021 year end', 60),
-  #'45404': ('202105_g4_g6_parent.xlsx', 'Grade 4-6 parent 2021 year end', 60),
-  #'45402': ('202105_pp_g3_family.xlsx', 'Pre-Primary - Grade 3 family 2021 year end', 60),
+  '46099': ('202105_pp_p_teacher.xlsx', 'Pre-Primary and Primary teachers 2021 year end', 60),
+  '45400': ('202105_g4_g6_student.xlsx', 'Grade 4-6 student 2021 year end', 60),
+  '45404': ('202105_g4_g6_parent.xlsx', 'Grade 4-6 parent 2021 year end', 60),
+  '45402': ('202105_pp_g3_family.xlsx', 'Pre-Primary - Grade 3 family 2021 year end', 60),
   '45401': ('202105_g7_g12_student.xlsx', 'Secondary student 2021 year end', 60),
-  #'45403': ('202105_g7_g12_parent.xlsx', 'Secondary parent 2021 year end', 60),
+  '45403': ('202105_g7_g12_parent.xlsx', 'Secondary parent 2021 year end', 60),
   #'42518': ('old_survey_test_file.xlsx', 'Old survey - test 2021 year end', 60),
 }
 
