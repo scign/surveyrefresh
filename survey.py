@@ -61,6 +61,7 @@ def download_responses(b, download_path):
 
   new_file = os.path.join(download_path, (set(latest_files) - set(current_files)).pop())
   logging.info(f'File downloaded: {new_file}')
+  return new_file
 
 def get_responses(survey_id, download_path):
   b = get_logged_in_browser(survey_id, download_path)
