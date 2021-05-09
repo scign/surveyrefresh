@@ -4,7 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import JavascriptException, TimeoutException, StaleElementReferenceException
+from selenium.common.exceptions import TimeoutException
 
 TIMEOUT = 120
 
@@ -19,22 +19,30 @@ def set_options(download_path):
   options.set_preference("browser.helperApps.neverAsk.saveToDisk", "text/csv, text/tab-separated-values, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
   return options
 
-def login(params):
-  driver = webdriver.Firefox(options=params['options'], service_log_path=os.devnull)
-  driver.get(params['url'])
-  WebDriverWait(driver, TIMEOUT).until(EC.visibility_of_element_located((By.ID, params['username'][0])))
-  driver.find_element_by_id(params['username'][0]).send_keys(params['username'][1])
-  WebDriverWait(driver, TIMEOUT).until(EC.visibility_of_element_located((By.ID, params['password'][0])))
-  driver.find_element_by_id(params['password'][0]).send_keys(params['password'][1])
-  driver.find_element_by_id(params['submit']).click()
+def login(
+    url='http://localhost',
+    download_path='.',
+    username=[],
+    password=[],
+    submit='',
+  ):
+  driver = webdriver.Firefox(
+    options=set_options(download_path),
+    service_log_path=os.devnull
+  )
+  wait = WebDriverWait(driver, TIMEOUT)
+  driver.get(url)
+  wait.until(EC.visibility_of_element_located((By.ID, username[0])))
+  driver.find_element_by_id(username[0]).send_keys(username[1])
+  wait.until(EC.visibility_of_element_located((By.ID, password[0])))
+  driver.find_element_by_id(password[0]).send_keys(password[1])
+  driver.find_element_by_id(submit).click()
   return driver
 
-def go_to(driver, url):
-  driver.get(url)
-
 def wait_for_id(driver, id):
+  wait = WebDriverWait(driver, TIMEOUT)
   try:
-    WebDriverWait(driver, TIMEOUT).until(EC.visibility_of_element_located((By.ID, id)))
+    wait.until(EC.visibility_of_element_located((By.ID, id)))
     return True
   except TimeoutException:
     return False
@@ -46,8 +54,9 @@ def get_id(driver, id):
     return None
 
 def wait_for_class(driver, class_):
+  wait = WebDriverWait(driver, TIMEOUT)
   try:
-    WebDriverWait(driver, TIMEOUT).until(EC.visibility_of_element_located((By.CLASS_NAME, class_)))
+    wait.until(EC.visibility_of_element_located((By.CLASS_NAME, class_)))
     return True
   except TimeoutException:
     return False
