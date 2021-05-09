@@ -1,4 +1,5 @@
 import os
+import asyncio
 import logging
 import pandas as pd
 from time import sleep
@@ -144,4 +145,4 @@ if __name__ == '__main__':
   message = ''
   for name, modified in files.items():
     message += '<b>' + name + '</b>\n' + modified.strftime('%a %b %d, %I:%M:%S %p') + '\n\n'
-  send(message)
+  asyncio.run(send_message(message))
