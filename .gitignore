@@ -1,3 +1,6 @@
+# Telegram sessions
+*.session
+
 # VSCode
 .vscode/
 
