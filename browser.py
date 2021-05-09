@@ -77,7 +77,7 @@ def wait_for_id(driver, id):
 
 def get_id(driver, id):
   try:
-    return driver.find_element_by_id(id)
+    return driver.find_element_by_id(id) if wait_for_id(driver, id) else None
   except TimeoutException:
     return None
 
@@ -91,6 +91,6 @@ def wait_for_class(driver, class_):
 
 def get_class(driver, class_):
   try:
-    return driver.find_elements_by_class_name(class_)
+    return driver.find_elements_by_class_name(class_) if wait_for_class(driver, class_) else None
   except TimeoutException:
     return None
