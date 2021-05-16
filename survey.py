@@ -139,7 +139,10 @@ surveys = {
 if __name__ == '__main__':
   download_surveys()
   files = get_file_details()
+  df_files = pd.DataFrame([{'name':n,'modified':m} for n,m in files.items()])
+  df_files['modtime'] = df_files.modified.dt.strftime('%a %b %d, %I %p')
   message = ''
-  for name, modified in files.items():
-    message += '<b>' + name + '</b>\n' + modified.strftime('%a %b %d, %I:%M:%S %p') + '\n\n'
+  for tstamp,g in df_files.groupby('modtime'):
+    message += f'<b>{tstamp}</b>\n'
+    message += ''.join(f'  {filename}\n' for filename in g.name)
   asyncio.run(send_message(message))
