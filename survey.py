@@ -51,7 +51,7 @@ def download_responses(b, download_path):
   wait_for_id(b, 'edit-format-excel')
   logging.info('Waiting for download to complete')
 
-  for i in range(20):
+  for i in range(50):
     _,_,latest_files = next(os.walk(download_path))
     if len(latest_files) > len(current_files):
       break
@@ -60,6 +60,7 @@ def download_responses(b, download_path):
     logging.error('No new files detected within time limit - exiting (no data)')
 
   new_file = os.path.join(download_path, (set(latest_files) - set(current_files)).pop())
+  sleep(2)
   logging.info(f'File downloaded: {new_file}')
   return new_file
 
