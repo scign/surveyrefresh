@@ -121,7 +121,7 @@ def download_surveys():
 """
   Set up survey datasets to download
   Format:
-    - Node ID (number from the download URL)
+    - key = Node ID (number from the download URL)
     - Destination filename (what the file should be called when uploaded to SharePoint)
     - Survey title (What the survey should be named in Power BI)
     - Completion threshold (responses with the same answers and within this number of seconds from each other will be removed)
