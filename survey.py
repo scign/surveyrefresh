@@ -133,7 +133,6 @@ surveys = {
   '45402': ('202105_pp_g3_family.xlsx', 'Pre-Primary - Grade 3 family 2021 year end', 60),
   '45401': ('202105_g7_g12_student.xlsx', 'Secondary student 2021 year end', 60),
   '45403': ('202105_g7_g12_parent.xlsx', 'Secondary parent 2021 year end', 60),
-  #'42518': ('old_survey_test_file.xlsx', 'Old survey - test 2021 year end', 60),
 }
 
 if __name__ == '__main__':
