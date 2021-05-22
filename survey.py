@@ -120,7 +120,8 @@ def download_surveys():
           df['survey'] = survey_name
 
           output_file = os.path.join(download_path, survey_file)
-          melted = remove_duplicates(df, completion_threshold)
+          # melted = remove_duplicates(df, completion_threshold)
+          melted = remove_duplicates(df) # no completion threshold: melt but keep duplicates if any
           melted.to_excel(output_file)
 
           # use the office365 api to upload the file
