@@ -6,7 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
-TIMEOUT = 120
+TIMEOUT = 240
 
 def set_options(download_path):
   options = Options()
